@@ -17,8 +17,8 @@ artist_url = f'{url}/artists/{art_id}'
 
 album_url = 'https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V'
 
-headers = {'Authorization': f'Bearer: {token}'}
+headers = {'Authorization': 'Bearer '+access}
 
-response = requests.get(album_url, headers=headers)
+response = requests.get(artist_url, headers=headers)
 
 print(response.json())
