@@ -1,15 +1,24 @@
-# Make requests
-
+# Refresh token
 import requests
 import json
+
+# Make requests
 
 with open('token.json') as json_file:
     token = json.load(json_file)
 
-print(token['access_token'])
+access = token['access_token']
 
-# url = ''
+url = 'https://api.spotify.com/v1' # Spotify Web API
 
-# headers = {'Authorization': f'Bearer: {token['access token']}'}
+art_id = '6mEQK9m2krja6X1cfsAjfl'
 
-# response = requests.get
+artist_url = f'{url}/artists/{art_id}'
+
+album_url = 'https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V'
+
+headers = {'Authorization': f'Bearer: {token}'}
+
+response = requests.get(album_url, headers=headers)
+
+print(response.json())
