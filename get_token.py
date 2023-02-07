@@ -2,7 +2,6 @@
 import base64
 import requests
 import re
-from utils import write_textfile
 
 def request_authorization(client_id, redirect_uri):
      """
@@ -50,15 +49,14 @@ def get_access_token(code, redirect_uri, client_id, client_secret):
      response = requests.post(token_url, params=params, headers=headers)
 
      if response.status_code == 200:
-          print("Successfully called API endpoint. Writing token to file")
+          print("Successfully retrieved token")
           token_json = response.json()
           token = token_json['access_token']
-          write_textfile(token, "token.txt")
-          print("Successfully written token to file")
+          return token
      else:
           print("Something went wrong! Response status code: %s" % response.status_code)
 
-if __name__=="__main__":
+def get_token():
      client_id = input("Please paste here your client id: ")
      client_secret = input("Please paste here your client secret: ")
      redirect_uri = "https://jpn-top-100.com/callback"
@@ -73,3 +71,6 @@ if __name__=="__main__":
                       client_id=client_id,
                       client_secret=client_secret
      )
+
+if __name__=="__main__":
+     get_token()
