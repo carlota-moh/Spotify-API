@@ -2,12 +2,12 @@ import json
 import base64
 import requests
 
-def get_request(url, token):
+def get_request(url, token, params=None):
 
       headers = {"Authorization": "Bearer "+token,
                 "Content-Type": "application/json"}
 
-      response = requests.get(url, headers=headers)
+      response = requests.get(url, headers=headers, params=params)
 
       if response.status_code == 200:
             print("Successful get request")
@@ -66,6 +66,24 @@ def add_songs(user_id, token, playlist_id, uris):
       response = post_request(url=url, token=token, data=data)
 
       return response
+
+def search_(query, type, limit, token):
+      url = "https://api.spotify.com/v1/search"
+
+      params = {"q": query,
+               "type": type,
+               "limit": limit}
+
+      result = get_request(url=url, token=token, params=params)
+
+      return result['items']
+
+def search_song(query, limit, token):
+      song_json = search_(query=query, type="track", limit=1, token=token)
+
+      song_id = song_json['tracks']['items'][0]['id']
+
+      return song_id
 
 
 
