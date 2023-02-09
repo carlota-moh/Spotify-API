@@ -11,8 +11,8 @@ def get_request(url, token):
 
       if response.status_code == 200:
             print("Successful get request")
-            playlists = response.json()
-            return playlists
+            return response.json()
+
       else:
             print("Something went wrong! Response status code: %s" % response.status_code)
 
@@ -25,8 +25,8 @@ def post_request(url, token, data):
 
       if response.status_code == 200:
             print("Successful post request")
-            playlists = response.json()
-            return playlists
+            return response.json()
+
       else:
             print("Something went wrong! Response status code: %s" % response.status_code)
 
@@ -53,7 +53,19 @@ def make_playlist(user_id, token, playlist_name, playlist_description = None):
                         "description": playlist_description,
                         "public": "true"}, indent=4)
 
-      post_request(url=url, token=token, data=data)
+      response = post_request(url=url, token=token, data=data)
+
+      return response
+
+def add_songs(user_id, token, playlist_id, uris):
+
+      url = f"https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks"
+
+      data = json.dumps({"uris": uris}, indent=4)
+
+      response = post_request(url=url, token=token, data=data)
+
+      return response
 
 
 
