@@ -1,0 +1,5 @@
+# Ignore secrets file
+secrets.txt
+
+# Ignore venv
+spotify_env
